@@ -149,3 +149,11 @@ void Tree::postorder_stack(Node *root) const {
         s2.pop();
     }
 }
+
+int Tree::count_node(Node *root) const {
+    int x, y;
+    if (root != nullptr)
+        return count_node(root->lchild) + count_node(root->rchild) + 1;
+
+    return 0;
+}
