@@ -28,6 +28,7 @@ class bstree {
     Node* recursive_search(int key) const { return recursive_search(root, key); };
     Node* iterative_search(int key) const { return iterative_search(root, key); };
     void insert(int key) { insert(root, key); };
+    void delete_node(int key);
     // void levelorder() const;
 };
 

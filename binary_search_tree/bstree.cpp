@@ -75,3 +75,56 @@ void bstree::insert(Node *root, int key) {
         prev->lchild = new_node;
 }
 
+void bstree::delete_node(int key) {
+    Node *curr = this->root;
+    Node *prev = nullptr;
+    while (curr != nullptr && curr->data != key) {
+        prev = curr;
+
+        if (key > curr->data)
+            curr = curr->rchild;
+        else
+            curr = curr->lchild;
+    }
+
+    if (curr == nullptr) {
+        cout << "this key doesn't exist" << '\n';
+        return;
+    }
+
+    if (curr->lchild == nullptr || curr->rchild == nullptr) {
+        Node *new_node = nullptr;
+
+        if (curr->lchild == nullptr)
+            new_node = curr->rchild;
+        else
+            new_node = curr->lchild;
+
+        if (prev == nullptr) {
+            delete curr;
+            return;
+        }
+
+        if (curr == prev->lchild)
+            prev->lchild = new_node;
+        else
+            prev->rchild = new_node;
+
+        delete curr;
+    } else {
+        Node *temp = curr->lchild;
+        Node *parent = nullptr;
+        while (temp->rchild != nullptr) {
+            parent = temp;
+            temp = temp->rchild;
+        }
+
+        if (parent == nullptr)
+            curr->lchild = temp->lchild;
+        else
+            parent->rchild = temp->lchild;
+
+        curr->data = temp->data;
+        delete temp;
+    }
+}
