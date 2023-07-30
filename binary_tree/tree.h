@@ -23,6 +23,7 @@ class Tree {
     void postorder_stack(Node *p) const;
     void levelorder(Node *p) const;
     void destroy_tree(Node *p);
+    int count_node(Node *p) const;
 
    public:
     Tree() : root(nullptr){};
@@ -35,6 +36,7 @@ class Tree {
     void postorder() const { postorder(root); };
     void postorder_stack() const { postorder_stack(root); };
     void levelorder() const { levelorder(root); };
+    int count_node() const { return count_node(root); };
 };
 
 #endif

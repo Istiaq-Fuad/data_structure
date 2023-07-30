@@ -18,7 +18,7 @@ int main() {
     // btree.insert(1);
     // btree.insert(3);
 
-    btree.postorder();
+    btree.preorder();
     cout << '\n';
-    btree.postorder();
+    btree.preorder_stack();
 }
