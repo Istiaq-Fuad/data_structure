@@ -140,8 +140,8 @@ void Tree::postorder_stack(Node *root) const {
         s2.push(temp);
         s1.pop();
 
-        if (temp->lchild != nullptr) s2.push(temp->lchild);
-        if (temp->rchild != nullptr) s2.push(temp->rchild);
+        if (temp->lchild != nullptr) s1.push(temp->lchild);
+        if (temp->rchild != nullptr) s1.push(temp->rchild);
     }
 
     while (!s2.empty()) {
