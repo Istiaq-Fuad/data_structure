@@ -37,6 +37,7 @@ int main() {
     //     cout << '\n';
     // }
 
-    g.print_graph_matrix();
+    g.print_graph_list();
+    // g.remove_edge(0, 5, 0);
     g.bfs_shortest_path(0, 7);
 }

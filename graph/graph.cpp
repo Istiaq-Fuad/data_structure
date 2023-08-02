@@ -67,17 +67,39 @@ void Graph::remove_edge(int i, int j, bool directed) {
     if (!directed) adj_matrix[j][i] = 0;
 
     // remove edge from adjacency list
-    // TODO: will do later
+    auto temp = adj_list[i];
+    auto prev = temp;
+    while (temp->vertex != j && temp != nullptr) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == nullptr)
+        cout << "no such edge exist";
+    else
+        prev->next = temp->next, delete temp;
+
+    if (directed) return;
+    temp = adj_list[j];
+    prev = temp;
+    while (temp->vertex != i && temp != nullptr)
+        prev = temp, temp = temp->next;
+
+    if (temp == nullptr)
+        cout << "no such edge exist";
+    else
+        prev->next = temp->next, delete temp;
 }
 
 void Graph::print_graph_list() const {
     for (int i = 0; i < num_vertices; i++) {
-        cout << "0: ";
+        cout << i << ": ";
         Node* temp = adj_list[i];
         while (temp != nullptr) {
             cout << " -> " << temp->vertex;
             temp = temp->next;
         }
+        cout << '\n';
     }
 }
 
