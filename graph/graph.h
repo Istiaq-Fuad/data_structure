@@ -21,7 +21,7 @@ class Graph {
    public:
     Graph(int num_vertices);
     ~Graph();
-    void add_edge(int from, int to, bool directed);
+    void add_edge(int from, int to, int weight, bool directed);
     void remove_edge(int from, int to, bool directed);
     void print_graph_matrix() const;
     void print_graph_list() const;
@@ -31,6 +31,7 @@ class Graph {
     void BFS_list(int start) const;
     int*** path_matrix(int num_path);
     void bfs_shortest_path(int from, int to) const;
+    void dijkstra(int start, int target) const;
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include <stack>
 #include <vector>
 using namespace std;
+typedef pair<int, int> pi;
 
 Graph::Graph(int num_vertices) {
     this->num_vertices = num_vertices;
@@ -44,10 +45,10 @@ void Graph::print_graph_matrix() const {
     }
 }
 
-void Graph::add_edge(int from, int to, bool directed) {
+void Graph::add_edge(int from, int to, int weight, bool directed) {
     // for adding element in adjacency matrix
-    adj_matrix[from][to] = 1;
-    if (!directed) adj_matrix[from][to] = 1;
+    adj_matrix[from][to] = weight;
+    if (!directed) adj_matrix[to][from] = weight;
 
     // for adding element in adjacency list
     Node* new_node = new Node(to);
@@ -114,7 +115,7 @@ void Graph::DFS_matrix(int start) const {
         s.pop();
         cout << v << ' ';
         for (int i = 0; i < num_vertices; i++) {
-            if (adj_matrix[v][i] == 1 && !visited[i]) {
+            if (adj_matrix[v][i] != 0 && !visited[i]) {
                 s.push(i);
                 visited[i] = true;
             }
@@ -155,7 +156,7 @@ void Graph::BFS_matrix(int start) const {
         q.pop();
         cout << v << ' ';
         for (int i = 0; i < num_vertices; i++) {
-            if (adj_matrix[v][i] == 1 && !visited[i]) {
+            if (adj_matrix[v][i] != 0 && !visited[i]) {
                 q.push(i);
                 visited[i] = true;
             }
@@ -224,7 +225,7 @@ void Graph::bfs_shortest_path(int from, int to) const {
         q.pop();
         // cout << v << ' ';
         for (int i = 0; i < num_vertices; i++) {
-            if (adj_matrix[v][i] == 1 && !visited[i]) {
+            if (adj_matrix[v][i] != 0 && !visited[i]) {
                 q.push(i);
                 visited[i] = true;
                 prev[i] = v;
@@ -242,6 +243,60 @@ void Graph::bfs_shortest_path(int from, int to) const {
 
     if (path.top() != from) {
         cout << "there is no path from " << from << " to " << to << '\n';
+    } else {
+        cout << path.top();
+        path.pop();
+        while (!path.empty()) {
+            cout << " -> " << path.top();
+            path.pop();
+        }
+    }
+
+    cout << '\n';
+}
+
+void Graph::dijkstra(int start, int target) const {
+    priority_queue<pi, vector<pi>, greater<pi> > pq;
+    int distance[num_vertices];
+    bool visited[num_vertices];
+    int pred[num_vertices];
+
+    for (int i = 0; i < num_vertices; i++)
+        distance[i] = INT_MAX, visited[i] = false, pred[i] = start;
+
+    distance[start] = 0;
+    pq.push(make_pair(0, start));
+
+    while (!pq.empty()) {
+        int current = pq.top().second;
+        visited[current] = true;
+        pq.pop();
+        for (int i = 0; i < num_vertices; i++) {
+            int weight = adj_matrix[current][i];
+            if (weight == 0 || visited[i]) continue;
+
+            // distance[i] = min(distance[i], weight + distance[current]);
+            int min_distance = weight + distance[current];
+            if (distance[i] > min_distance)
+                distance[i] = min_distance, pred[i] = current;
+            pq.push(make_pair(distance[i], i));
+        }
+    }
+
+    cout << distance[target] << '\n';
+    // for (int i : pred) cout << i << ' ';
+
+    // print the path from start to target
+    stack<int> path;
+    int temp = target;
+    while (temp != start) {
+        path.push(temp);
+        temp = pred[temp];
+        if (temp == start) path.push(temp);
+    }
+
+    if (path.top() != start) {
+        cout << "there is no path from " << start << " to " << target << '\n';
     } else {
         cout << path.top();
         path.pop();
