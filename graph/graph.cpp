@@ -7,6 +7,7 @@
 #include <vector>
 using namespace std;
 typedef pair<int, int> pi;
+typedef long long int ll;
 
 Graph::Graph(int num_vertices) {
     this->num_vertices = num_vertices;
@@ -307,4 +308,34 @@ void Graph::dijkstra(int start, int target) const {
     }
 
     cout << '\n';
+}
+
+ll** Graph::floyd_warshall() const {
+    ll** m = new ll*[num_vertices];
+    for (int i = 0; i < num_vertices; i++) {
+        m[i] = new ll[num_vertices];
+        for (int j = 0; j < num_vertices; j++) {
+            if (adj_matrix[i][j] == 0)
+                m[i][j] = INT_MAX;
+            else
+                m[i][j] = adj_matrix[i][j];
+        }
+    }
+
+    // for (int i = 0; i < num_vertices; i++) {
+    //     for (int j = 0; j < num_vertices; j++) {
+    //         cout << m[i][j] << ' ';zsum
+    //     }
+    //     cout << '\n';
+    // }
+
+    for (int k = 0; k < num_vertices; k++) {
+        for (int i = 0; i < num_vertices; i++) {
+            for (int j = 0; j < num_vertices; j++) {
+                m[i][j] = min(m[i][j], m[i][k] + m[k][j]);
+            }
+        }
+    }
+
+    return m;
 }
