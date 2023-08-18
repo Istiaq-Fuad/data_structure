@@ -29,7 +29,8 @@ class Graph {
     void DFS_list(int start) const;
     void BFS_matrix(int start) const;
     void BFS_list(int start) const;
-    int*** path_matrix(int num_path);
+    int** path_matrix();
+    int** path_length(int length);
     void bfs_shortest_path(int from, int to) const;
     void dijkstra(int start, int target) const;
     long long** floyd_warshall() const;

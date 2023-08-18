@@ -186,21 +186,24 @@ void Graph::BFS_list(int start) const {
     cout << '\n';
 }
 
-int*** Graph::path_matrix(int num_path) {
-    int*** m = new int**[num_path];
-    for (int i = 0; i < num_path; i++) {
+int** Graph::path_matrix() {
+    int*** m = new int**[num_vertices];
+    for (int i = 0; i < num_vertices; i++) {
         m[i] = new int*[num_vertices];
         for (int j = 0; j < num_vertices; j++) {
             m[i][j] = new int[num_vertices];
             memset(m[i][j], 0, sizeof(int) * num_vertices);
-            // for (int k = 0; k < num_vertices; k++)
-            //     m[i][j][k] = 0;
         }
     }
 
-    m[0] = adj_matrix;
+    // m[0] = adj_matrix;
+    for (int i = 0; i < num_vertices; i++) {
+        for (int j = 0; j < num_vertices; j++) {
+            m[0][i][j] = adj_matrix[i][j];
+        }
+    }
 
-    for (int l = 1; l < num_path; l++) {
+    for (int l = 1; l < num_vertices; l++) {
         for (int i = 0; i < num_vertices; i++) {
             for (int j = 0; j < num_vertices; j++) {
                 for (int k = 0; k < num_vertices; k++) {
@@ -210,7 +213,52 @@ int*** Graph::path_matrix(int num_path) {
         }
     }
 
-    return m;
+    for (int i = 0; i < num_vertices; i++) {
+        for (int j = 0; j < num_vertices; j++) {
+            for (int k = 1; k < num_vertices; k++) {
+                m[0][i][j] += m[k][i][j];
+            }
+
+            if (m[0][i][j] > 0) m[0][i][j] = 1;
+        }
+    }
+
+    return m[0];
+}
+
+int** Graph::path_length(int length) {
+    if (length > num_vertices) {
+        cout << "maximum " << num_vertices << " length of path is possible" << '\n';
+        return nullptr;
+    }
+
+    int*** m = new int**[length];
+    for (int i = 0; i < length; i++) {
+        m[i] = new int*[num_vertices];
+        for (int j = 0; j < num_vertices; j++) {
+            m[i][j] = new int[num_vertices];
+            memset(m[i][j], 0, sizeof(int) * num_vertices);
+        }
+    }
+
+    // m[0] = adj_matrix;
+    for (int i = 0; i < num_vertices; i++) {
+        for (int j = 0; j < num_vertices; j++) {
+            m[0][i][j] = adj_matrix[i][j];
+        }
+    }
+
+    for (int l = 1; l < length; l++) {
+        for (int i = 0; i < num_vertices; i++) {
+            for (int j = 0; j < num_vertices; j++) {
+                for (int k = 0; k < num_vertices; k++) {
+                    m[l][i][j] += m[0][i][k] * m[l - 1][k][j];
+                }
+            }
+        }
+    }
+
+    return m[length - 1];
 }
 
 void Graph::bfs_shortest_path(int from, int to) const {
@@ -321,13 +369,6 @@ ll** Graph::floyd_warshall() const {
                 m[i][j] = adj_matrix[i][j];
         }
     }
-
-    // for (int i = 0; i < num_vertices; i++) {
-    //     for (int j = 0; j < num_vertices; j++) {
-    //         cout << m[i][j] << ' ';zsum
-    //     }
-    //     cout << '\n';
-    // }
 
     for (int k = 0; k < num_vertices; k++) {
         for (int i = 0; i < num_vertices; i++) {
