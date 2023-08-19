@@ -5,16 +5,16 @@ class Stack {
    private:
     int size;
     int top;
-    int* elements;
+    char* elements;
 
    public:
     Stack(int size);
     ~Stack();
     bool isEmpty() const;
     bool isFull() const;
-    void push(int data);
+    void push(char data);
     void pop();
-    int peek() const;
+    char peek() const;
     void print_stack();
 };
 

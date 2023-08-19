@@ -7,11 +7,11 @@ using namespace std;
 int main() {
     Stack s(5);
 
-    s.push(4);
-    s.push(9);
-    s.push(3);
+    s.push('a');
+    s.push('g');
+    s.push('e');
 
-    int data = s.peek();
+    char data = s.peek();
     cout << data << '\n';
     s.print_stack();
 }

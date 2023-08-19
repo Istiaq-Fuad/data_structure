@@ -7,7 +7,7 @@ using namespace std;
 Stack::Stack(int size) {
     this->size = size;
     top = -1;
-    elements = new int[size];
+    elements = new char[size];
 }
 
 Stack::~Stack() {
@@ -22,7 +22,7 @@ bool Stack::isFull() const {
     return top == size - 1;
 }
 
-void Stack::push(int data) {
+void Stack::push(char data) {
     if (isFull()) {
         cout << "Stack is full" << '\n';
         return;
@@ -40,7 +40,7 @@ void Stack::pop() {
     top--;
 }
 
-int Stack::peek() const {
+char Stack::peek() const {
     if (top == -1) {
         cout << "Stack is empty" << '\n';
         return -1;
