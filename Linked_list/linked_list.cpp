@@ -115,7 +115,7 @@ Node* LinkedList::search(int data) const {
     if (root == nullptr) return nullptr;
 
     Node* temp = root;
-    while (temp->data != data && temp != nullptr)
+    while (temp != nullptr && temp->data != data)
         temp = temp->next;
 
     return temp;

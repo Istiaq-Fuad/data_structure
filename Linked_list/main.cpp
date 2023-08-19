@@ -14,8 +14,11 @@ int main() {
     // ll.insert_at(3, 4);
     // ll.delete_at(2);
 
-    // Node* temp = ll.search(2);
-    // cout << temp->data << '\n';
+    Node* temp = ll.search(3);
+    if (temp == nullptr)
+        cout << "element doesn't exist" << '\n';
+    else
+        cout << temp->data << '\n';
 
     // ll.sort();
     ll.print_list();
