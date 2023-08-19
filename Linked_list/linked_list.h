@@ -14,7 +14,8 @@ class LinkedList {
    public:
     LinkedList() : root(nullptr){};
     ~LinkedList();
-    void insert(int data);
+    void insertAtEnd(int data);
+    void insertAtBeginning(int data);
     void insert_at(int data, int pos);
     void delete_first();
     void delete_last();

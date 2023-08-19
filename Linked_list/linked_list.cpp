@@ -13,13 +13,13 @@ LinkedList::~LinkedList() {
 }
 
 Node* LinkedList::create_node(int data) {
-    Node* temp = new Node;
+    Node* temp = new Node();
     temp->data = data;
     temp->next = nullptr;
     return temp;
 }
 
-void LinkedList::insert(int data) {
+void LinkedList::insertAtEnd(int data) {
     Node* new_node = create_node(data);
 
     if (root == nullptr) {
@@ -30,6 +30,18 @@ void LinkedList::insert(int data) {
     Node* temp = root;
     while (temp->next != nullptr) temp = temp->next;
     temp->next = new_node;
+}
+
+void LinkedList::insertAtBeginning(int data) {
+    Node* new_node = create_node(data);
+    if (root == nullptr) {
+        root = new_node;
+        return;
+    }
+
+    Node* temp = root;
+    new_node->next = temp;
+    root = new_node;
 }
 
 void LinkedList::insert_at(int data, int pos) {
