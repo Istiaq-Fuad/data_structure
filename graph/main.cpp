@@ -7,33 +7,24 @@ int main() {
     int n = 4;
     Graph g(n);
 
-    g.add_edge(0, 0, 7, 1);
-    g.add_edge(0, 1, 5, 1);
-    g.add_edge(1, 0, 7, 1);
-    g.add_edge(1, 3, 2, 1);
-    g.add_edge(2, 1, 3, 1);
-    g.add_edge(3, 0, 4, 1);
-    g.add_edge(3, 2, 1, 1);
-    g.add_edge(4, 2, 7, 0);
-    g.add_edge(4, 3, 6, 0);
+    g.add_edge(0, 3, 1);
+    g.add_edge(1, 0, 1);
+    g.add_edge(1, 2, 1);
+    g.add_edge(1, 3, 1);
+    g.add_edge(2, 0, 1);
+    g.add_edge(2, 3, 1);
+    g.add_edge(3, 2, 1);
 
-    // g.add_edge(0, 1, 1, 1);
-    // g.add_edge(1, 2, 1, 1);
-    // g.add_edge(1, 3, 1, 1);
-    // g.add_edge(3, 0, 1, 1);
-    // g.add_edge(3, 2, 1, 1);
-    // g.add_edge(3, 3, 1, 1);
-
-    // g.DFS_matrix(0);
+    g.print_graph_matrix();
 
     // path matrix
-    // int** path = g.path_length(4);
-    // for (int i = 0; i < n; i++) {
-    //     for (int j = 0; j < n; j++) {
-    //         cout << path[i][j] << ' ';
-    //     }
-    //     cout << '\n';
-    // }
+    int** path = g.path_matrix();
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << path[i][j] << ' ';
+        }
+        cout << '\n';
+    }
 
     // shortest path matrix
     // long long** shortest_path = g.floyd_warshall();
@@ -44,9 +35,9 @@ int main() {
     //     cout << '\n';
     // }
 
-    cout << '\n';
-    g.print_graph_matrix();
+    // cout << '\n';
+    // g.print_graph_matrix();
     // g.remove_edge(0, 5, 0);
-    g.bfs_shortest_path(0, 3);
-    g.dijkstra(0, 3);
+    // g.bfs_shortest_path(0, 3);
+    // g.dijkstra(0, 3);
 }
