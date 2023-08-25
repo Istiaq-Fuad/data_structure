@@ -22,6 +22,7 @@ class LinkedList {
     void delete_at(int pos);
     Node* search(int data) const;
     void sort();
+    void reverse();
     void print_list() const;
 };
 

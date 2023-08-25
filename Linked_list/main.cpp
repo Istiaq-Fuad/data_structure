@@ -22,4 +22,6 @@ int main() {
 
     // ll.sort();
     ll.print_list();
+    ll.reverse();
+    ll.print_list();
 }

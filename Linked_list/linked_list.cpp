@@ -140,6 +140,22 @@ void LinkedList::sort() {
     }
 }
 
+void LinkedList::reverse() {
+    if (root == nullptr) return;
+
+    Node* temp = root;
+    Node* curr = root;
+    Node* prev = nullptr;
+    while (temp != nullptr) {
+        temp = temp->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+    }
+
+    root = prev;
+}
+
 void LinkedList::print_list() const {
     Node* temp = root;
     while (temp != nullptr) {
