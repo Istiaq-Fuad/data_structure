@@ -144,7 +144,10 @@ void Graph::DFS_list(int start) const {
         Node* temp = adj_list[start];
         while (temp != nullptr) {
             int data = temp->vertex;
-            if (!visited[data]) s.push(data);
+            if (!visited[data]) {
+                s.push(data);
+                visited[data] = true;
+            }
             temp = temp->next;
         }
     }
@@ -272,7 +275,7 @@ void Graph::bfs_shortest_path(int from, int to) const {
                 q.push(i);
                 visited[i] = true;
                 prev[i] = v;
-                if (i == to) break;
+                // if (i == to) break;
             }
         }
     }
