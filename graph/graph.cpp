@@ -250,7 +250,7 @@ int** Graph::warshall_path_matrix() {
         for (int j = 0; j < num_vertices; j++) p[i][j] = adj_matrix[i][j];
     }
 
-    for (int k = 1; k < num_vertices; k++)
+    for (int k = 0; k < num_vertices; k++)
         for (int i = 0; i < num_vertices; i++)
             for (int j = 0; j < num_vertices; j++)
                 p[i][j] = p[i][j] || (p[i][k] && p[k][j]);
