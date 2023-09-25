@@ -99,11 +99,20 @@ void Tree::preorder_stack(Node *root) const {
 
     Node *temp = root;
     while (!s.empty() || temp != nullptr) {
-        if (temp == nullptr) temp = s.top(), s.pop();
+        if (temp != nullptr) {
+            cout << temp->data << '\t';
+            if (temp->rchild != nullptr) s.push(temp->rchild);
+            temp = temp->lchild;
+        } else {
+            temp = s.top();
+            s.pop();
+        }
 
-        cout << temp->data << '\t';
-        if (temp->rchild != nullptr) s.push(temp->rchild);
-        temp = temp->lchild;
+        // if (temp == nullptr) temp = s.top(), s.pop();
+
+        // cout << temp->data << '\t';
+        // if (temp->rchild != nullptr) s.push(temp->rchild);
+        // temp = temp->lchild;
     }
 }
 
